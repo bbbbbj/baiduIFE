@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证2</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		label{
+			font-size: 14px;
+			line-height: 22px;
+			font-family: '微软雅黑';
+		}
+		input{
+			height: 20px;
+			width: 150px;
+			border: 1px solid gray;
+			border-radius: 4px;
+			background-color: #fff
+		}
+		p{
+			height: 12px;
+			width: 100%;
+			line-height: 12px;
+			font-size: 10px;
+			padding-left: 60px;
+			margin-top: 4px;
+		}
+		.oFocus{
+			border: 1px solid gray;
+			box-shadow: 0 0 1px gray;
+		}
+		.oTrue{
+			border: 1px solid green;
+			box-shadow: 0 0 1px green;
+		}
+		.oFalse{
+			border: 1px solid red;
+			box-shadow: 0 0 1px red;
+		}
+	</style>
+</head>
+<body>
+	<form action="">
+		<lalel>姓名：</label>
+		<input type="text" name="name" id="name" placeholder="张三">
+		<p></p>
+		<lalel>密码：</label>
+		<input type="password" id="pwd" placeholder="请输入密码">
+		<p></p>
+		<lalel>确认密码：</label>
+		<input type="password" id="repassword" placeholder="再次输入密码">
+		<p></p>
+		<lalel>电话：</label>
+		<input type="text" id="tel" placeholder="请输入电话">
+		<p></p>
+		<lalel>邮箱</label>
+		<input type="text" id="email" placeholder="123@163.com">
+		<p></p>
+		<button>提交</button>
+	</form>
+	<script>
+		var oName = document.getElementById('name');
+		var pwd = document.getElementById('pwd');
+		var rePwd = document.getElementById('repassword');
+		var oTel = document.getElementById('tel');
+		var oEmail = document.getElementById('email');
+		var oP = document.getElementsByTagName('p');
+		var oBtn = document.getElementsByTagName('button')[0];
+		function oNameFocus(){
+			oP[0].innerHTML = '必填，长度为4-16个字符';
+			oName.className = 'oFocus';
+		}
+		function oNameBlur(){
+			if (oName.value =='' || oName.value.indexOf(' ') >= 0){
+				oP[0].innerHTML = '姓名不能为空或者包含空格';
+				oP[0].style.color = 'red';
+				oName.className = 'oFalse';
+				return false;
+			}else if(oName.value.length < 4 || oName.value.length > 16){
+				oP[0].innerHTML = '请输入4-16位的字符';
+				oP[0].style.color = 'red';
+				oName.className = 'oFalse';
+				return false;
+			}else{
+				oP[0].innerHTML = '姓名有效';
+				oP[0].style.color = 'green';
+				oName.className = 'oTrue';
+				return true;
+			}
+		}
+		function pwdFocus(){
+			oP[1].innerHTML = '请输入4-16位的字符';
+			pwd.className = 'oFocus';
+		}
+		function pwdBlur(){
+			if(pwd.value == '' || pwd.value.indexOf(' ') >= 0){
+				oP[1].innerHTML = '密码不能为空且不能包含空格';
+				oP[1].style.color = 'red';
+				pwd.className = 'oFalse';
+				return false;
+			}else if(pwd.value.length > 16 || pwd.value.length < 4){
+				oP[1].innerHTML = '长度不符';
+				oP[1].style.color = 'red';
+				pwd.className = 'oFalse';
+				return false;
+			}else{
+				oP[1].innerHTML = '密码有效';
+				oP[1].style.color = 'green';
+				oName.className = 'oTrue';
+				return true;
+			}
+		}
+		function rePwdFocus(){
+			oP[2].innerHTML = '请再次输入密码';
+			rePwd.className = 'oFocus';
+		}
+		function rePwdBlur(){
+			if(rePwd.value == pwd.value){
+				oP[2].innerHTML = '验证成功';
+				oP[2].style.color = 'green';
+				rePwd.className = 'oTrue';
+				return true;
+			}else{
+				oP[2].innerHTML = '两次输入不一致，请重新输入';
+				oP[2].style.color = 'red';
+				rePwd.className = 'oFalse';
+				return false;
+			}
+		}
+		function oTelFocus(){
+			oP[3].innerHTML = '请输入11位手机号';
+			oTel.className = 'oFocus';
+		}
+		function oTelBlur(){
+			if(oTel.value == '' || oTel.value.indexOf(' ')>=0){
+				oP[3].innerHTML = '输入不能为空';
+				oP[3].style.color = 'red';
+				oTel.className = 'oFalse';
+				return false;
+			}
+			if(/((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(oTel.value)){
+				oP[3].innerHTML = '手机号验证成功';
+				oP[3].style.color = 'green';
+				oTel.className = 'oTrue';
+				return true;
+			}else{
+				oP[3].innerHTML = '请输入正确的手机号';
+				oP[3].style.color = 'red';
+				oTel.className = 'oFalse';
+				return false;
+			}
+		}
+		function oEmailFocus(){
+			oP[4].innerHTML = '请输入正确的邮箱';
+			oEmail.className = 'oFocus';
+		}
+		function oEmailBlur(){
+			if(oEmail.value == '' || oEmail.value.indexOf(' ')>=0){
+				oP[4].innerHTML = '输入不能为空';
+				oP[4].style.color = 'red';
+				oEmail.className = 'oFalse';
+				return false;
+			}else if(/([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/.test(oEmail.value)){
+				oP[4].innerHTML = '邮箱验证成功';
+				oP[4].style.color = 'green';
+				oEmail.className = 'oTrue';
+				return true;
+
+			}else{
+				oP[4].innerHTML = '请输入正确的邮箱';
+				oP[4].style.color = 'red';
+				oEmail.className = 'oFalse';
+				return false;
+			}
+		}
+		oBtn.onclick = function (){
+		
+			if(oNameBlur() && pwdBlur() && rePwdBlur() && oTelBlur() && oEmailBlur()){
+				alert('提交成功');
+			}else{
+				alert('请正确填写信息');
+			}
+		}
+		function init(){
+			oName.addEventListener('focus',oNameFocus);
+			oName.addEventListener('blur',oNameBlur);
+			pwd.addEventListener('focus',pwdFocus);
+			pwd.addEventListener('blur',pwdBlur);
+			rePwd.addEventListener('focus',rePwdFocus);
+			rePwd.addEventListener('blur',rePwdBlur);
+			oTel.addEventListener('focus',oTelFocus);
+			oTel.addEventListener('blur',oTelBlur);
+			oEmail.addEventListener('focus',oEmailFocus);
+			oEmail.addEventListener('blur',oEmailBlur);
+		}
+		init();
+		
+	</script>
+</body>
+</html>

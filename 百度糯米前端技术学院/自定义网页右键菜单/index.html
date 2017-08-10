@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义网页右键菜单</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.area{
+			width: 80%;
+			height: 300px;
+			margin: 50px auto;
+			background-color: #eee;
+			position: relative;
+		}
+		.menu{
+			width: 150px;
+			height: 200px;
+			position: absolute;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			display: none;
+		}
+		.op{
+			width: 100%;
+			height: 25%;
+			text-align: center;
+			line-height: 50px;
+			cursor: pointer;
+		}
+		.op:hover{
+			background-color: #eee;
+		}
+		li{
+			list-style: none;
+		}
+		.container{
+			width: 100%;
+			height: 100%;
+			height: 1000px;
+			overflow: hidden;
+			zoom: 1;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	<p></p>
+	<div class="area">点击区域
+		<ul class="menu">
+			<li class="op">Menu Item One</li>
+			<li class="op">Menu Item Two</li>
+			<li class="op">Menu Item Three</li>
+			<li class="op">Menu Item Four</li>
+		</ul>
+	</div>
+	</div>
+	<script>
+		var container = document.getElementsByTagName('div')[0];
+		var area = document.getElementsByTagName('div')[1];
+		var myMenu = document.getElementsByTagName('ul')[0];
+		var oBody = document.getElementsByTagName('body')[0];
+		area.oncontextmenu = function(e){
+			window.event ? window.event.cancelBubble = true : e.stopPropagation(); //阻止冒泡,防止触发body的oncontextmenu
+			e=e||e.event;//时间兼容
+			e.preventDefault();//阻止原有的菜单
+			e.returnValue = false;//IE中阻止原有的菜单
+			myMenu.style.display = 'block';
+			var posX = e.clientX;
+			var posY = e.clientY;
+			var myMenuWidth = myMenu.clientWidth;
+			var myMenuHeight = myMenu.clientHeight;
+			var areaWidth = area.clientWidth;
+			var areaHeight = area.clientHeight;
+			var areaLeft = area.offsetLeft;
+			var areaTop = area.offsetTop;
+			var a = areaLeft + areaWidth - myMenuWidth - posX;
+			var b = areaTop + areaHeight - myMenuHeight - posY;
+			if(a>0 && b>0){
+				myMenu.style.top = posY - areaTop + 'px';
+				myMenu.style.left = posX - areaLeft + 'px';
+			}else if(a>0 && b<=0){
+				myMenu.style.top = posY - areaTop - myMenuHeight +'px';
+				myMenu.style.left = posX -areaLeft + 'px';
+			}else if(a<=0 && b>0){
+				myMenu.style.top = posY - areaTop + 'px';
+				myMenu.style.left = posX - areaLeft - myMenuWidth +'px'
+			}else if( a<=0 && b<=0){
+				myMenu.style.top = posY - areaTop - myMenuHeight + 'px';
+				myMenu.style.left = posX - areaLeft - myMenuWidth + 'px';
+			}
+
+		}
+		container.onclick = function(){
+			myMenu.style.display = 'none';
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>听指令的小方块</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		*{
+			box-sizing: border-box;
+		}
+		ul,ol,li{
+			list-style: none;
+		}
+		table{
+			width: 100%;
+			height: 100%;
+			border-collapse: collapse;
+			
+		}
+		td{
+			box-sizing: border-box;
+			border: #ccc solid 1px;	
+		}
+		.table-box{
+			width: 450px;
+			height: 450px;
+			border: 2px solid #000;
+			box-sizing: border-box;
+			margin: 120px auto 30px;
+			position: relative;
+		}
+		.num-top{
+			width: 450px;
+			height: 16px;
+			position: fixed;
+			top: 95px;
+			left: 50%;
+			margin-left: -225px;
+		}
+		.num-top li{
+			display: inline-block;
+			width: 9%;
+			height: 16px;
+			font-size: 16px;
+			line-height: 16px;
+			text-align: center;
+		}
+		.num-left{
+			width: 16px;
+			height: 450px;
+			position: fixed;
+			top: 143px;
+			left: 50%;
+			margin-left:-250px;
+		}
+		.num-left li{
+			width: 16px;
+			height: 10%;
+			line-height: 9%;
+			font-size: 16px;
+		}
+		.chess-box{
+			width: 45px;
+			height: 45px;
+			box-sizing: border-box;
+			position: absolute;
+			top: 132px;
+			left: 220px;
+			background: -webkit-linear-gradient(top,blue,red);
+			transition: all 1s;
+		}
+		input{
+			width: 300px;
+			height: 35px;
+			margin-left: 30%;
+			display: inline-block;
+			border: 2px solid #ccc;
+			border-radius: 8px;
+		}
+		button{
+			width: 80px;
+			height: 35px;
+			display: inline-block;
+			margin-left: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+		input:hover{
+			box-shadow: 0 0 1px green;
+		}
+	</style>
+</head>
+<body>
+	
+	<ul class="num-top">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	<ul class="num-left">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	<div class="table-box">
+	<div class="chess-box" id="chess-box"></div>
+		<table>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<input type="text" id="commend">
+	<button>确定</button>
+	<script>
+		var oCom = document.getElementById('commend');
+		var chessBox = document.getElementById('chess-box');
+		var oTd = document.getElementsByTagName('td');
+		var btn = document.getElementsByTagName('button')[0];
+		var a=0;//0:top;1:right;2:bottom;3:left;
+		var obj = '';
+		//a的值与方向的关联
+		function change(a){
+			i=a%4;
+			switch(i){
+				case 0:
+					if(chessBox.offsetTop>=45){
+						chessBox.style.top = chessBox.offsetTop - 45 +'px';
+					}
+					break;
+				case 1:
+				case -3:
+					if(chessBox.offsetLeft<=380){
+						chessBox.style.left = chessBox.offsetLeft + 45 +'px';
+					}
+					break;
+				case 2:
+				case -2:
+					if(chessBox.offsetTop<=380){
+					chessBox.style.top = chessBox.offsetTop + 45 +'px';						
+					}
+					break;
+				case 3:
+				case -1:
+					if(chessBox.offsetLeft>10){
+					chessBox.style.left = chessBox.offsetLeft - 45 +'px';						
+					}
+					break;
+			}
+		}
+		//点击事件
+		btn.onclick = function(){
+			switch(oCom.value){
+				case 'TUN LEF':
+					a--;
+					bb=a%4;
+					alert(a);
+					chessBox.style.transform = 'rotate('+90*bb +'deg)';
+					break;
+				case 'TUN RIG':
+					a++;
+					cc=a%4;
+					alert(a);
+					chessBox.style.transform = 'rotate('+90*cc+'deg)';
+					break;
+				case 'TUN BAC':
+					a=a+2;
+					dd=a%4;
+					chessBox.style.transform = 'rotate('+90*dd+'deg)';
+					break;
+				case 'GO':
+					change (a);
+					break;
+				case 'TRA LEF':
+					chessBox.style.left = chessBox.offsetLeft - 45 +'px'; 
+					break;
+				case 'TRA TOP':
+					chessBox.style.top = chessBox.offsetTop - 45 +'px';
+					break;
+				case 'TRA RIG':
+					chessBox.style.left = chessBox.offsetLeft + 45 + 'px';
+					break;
+				case 'TRA BOT':
+					chessBox.style.top = chessBox.offsetTop + 45 + 'px';
+					break;
+				case 'MOV LEF':
+					if(chessBox.offsetLeft>=10){
+						a=-1;
+						chessBox.style.transform = '';//清空旋转角度
+						chessBox.style.transform = 'rotate(-90deg)';
+						var timer = setTimeout("chessBox.style.left = chessBox.offsetLeft - 45 + 'px'",1000);
+					}
+					break;
+				case 'MOV TOP':
+					if(chessBox.offsetTop>=10){
+						a=0;
+						chessBox.style.transform = '';
+						chessBox.style.top = chessBox.offsetTop - 45 + 'px';
+					}
+					break;
+				case 'MOV RIG':
+					if(chessBox.offsetLeft>=380){
+						a=1;
+						chessBox.style.transform = '';
+						chessBox.style.transform = 'rotate(90deg)';
+						var timer3 = setTimeout("chessBox.style.left = chessBox.offsetLeft + 45 + 'px'",1000);
+					}
+					break;
+				case 'MOV BOT':
+					if(chessBox.offsetTop>=380){
+						a=2;
+						chessBox.style.transform = '';
+						chessBox.style.transform = 'rotate(180deg)';
+						var timer4 = setTimeout("chessBox.style.top = chessBox.offsetTop + 45 + 'px'",1000);
+					}
+					break;
+			}
+		}
+	</script>
+</body>
+</html>

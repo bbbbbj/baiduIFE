@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>听指令的小方块</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul,ol,li{
+			list-style: none;
+		}
+		table{
+			width: 100%;
+			height: 100%;
+			border-collapse: collapse;
+		}
+		td{
+			box-sizing: border-box;
+			border: #ccc solid 1px;	
+		}
+		.table-box{
+			width: 450px;
+			height: 450px;
+			border: 2px solid #000;
+			box-sizing: border-box;
+			margin: 120px auto 30px;
+		}
+		.num-top{
+			width: 450px;
+			height: 16px;
+			position: fixed;
+			top: 95px;
+			left: 50%;
+			margin-left: -225px;
+		}
+		.num-top li{
+			display: inline-block;
+			width: 9%;
+			height: 16px;
+			font-size: 16px;
+			line-height: 16px;
+			text-align: center;
+		}
+		.num-left{
+			width: 16px;
+			height: 450px;
+			position: fixed;
+			top: 143px;
+			left: 50%;
+			margin-left:-250px;
+		}
+		.num-left li{
+			width: 16px;
+			height: 10%;
+			line-height: 9%;
+			font-size: 16px;
+		}
+		.chess-box{
+			background: -webkit-linear-gradient(top,blue,red);
+		}
+		input{
+			width: 300px;
+			height: 35px;
+			margin-left: 30%;
+			display: inline-block;
+			border: 2px solid #ccc;
+			border-radius: 8px;
+		}
+		button{
+			width: 80px;
+			height: 35px;
+			display: inline-block;
+			margin-left: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+		input:hover{
+			box-shadow: 0 0 1px green;
+		}
+	</style>
+</head>
+<body>
+	<ul class="num-top">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	<ul class="num-left">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+		<li>9</li>
+		<li>10</li>
+	</ul>
+	<div class="table-box">
+		<table>
+			<tbody>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="chess-box"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<input type="text" id="commend">
+	<button>确定</button>
+	<script>
+		var oCom = document.getElementById('commend');
+		var oTd = document.getElementsByTagName('td');
+		var btn = document.getElementsByTagName('button')[0];
+		var a=1;//1:top;2:right;3:bottom;4:left;
+		var obj = '';
+		function tun(a){
+			var chessBox = document.getElementsByClassName('chess-box')[0];
+			chessBox.style.cssText = 'background: -webkit-linear-gradient(' +obj+ ',blue,red)';
+		}
+		// function tunRig(a){
+		// 	//a++;
+		// 	change(a);
+		// 	var chessBox = document.getElementsByClassName('chess-box')[0];
+		// 	chessBox.style.background = '-webkit-linear-gradient(' +obj+ ',blue,red)';
+		// 	return a;
+		// }
+		// function tunBac(a){
+		// 	//a=a+2;
+		// 	change(a);
+		// 	var chessBox = document.getElementsByClassName('chess-box')[0];
+		// 	chessBox.style.background = '-webkit-linear-gradient(' +obj+ ',blue,red)';
+		// 	return a;
+		// }
+		function go(a){
+
+			var chessBox = document.getElementsByClassName('chess-box')[0];
+			var oI = [];
+			for(var i=0;i<oTd.length;i++){
+				if(oTd[i].className == 'chess-box'){
+					
+					oI.push(i);
+				}
+			}
+			var b = oI[0];
+			
+			change(a);
+			if(obj == 'left'){
+				if(chessBox.offsetLeft>=40){
+					oTd[b].className = '';
+					oTd[b].style.background = '';
+					oTd[b-1].className = 'chess-box';
+					oTd[b-1].style.cssText = 'background: -webkit-linear-gradient(left,blue,red)';
+				}
+			}else if(obj == 'top'){
+				if(chessBox.offsetTop >= 40){
+					oTd[b].className = '';
+					oTd[b].style.background = '';
+					oTd[b-10].className = 'chess-box';
+				}
+			}else if(obj == 'right'){
+				if(chessBox.offsetLeft <=380){
+					oTd[b].className = '';
+					oTd[b].style.background = '';
+					oTd[b+1].className = 'chess-box';
+					oTd[b+1].style.cssText = 'background: -webkit-linear-gradient(right,blue,red)';
+				}
+			}else if(obj == 'bottom'){
+				if(chessBox.parentNode.offsetTop <380){
+					oTd[b].className = '';
+					oTd[b].style.background = '';
+					oTd[b+10].className = 'chess-box';
+					oTd[b+10].style.cssText = 'background: -webkit-linear-gradient(bottom,blue,red)';
+				}
+			}
+			
+		}
+		function change(a){
+			var i = a%4;
+			switch(i){
+				case 0:
+					obj = 'left';
+					break;
+				case 1:
+				case -3:
+					obj = 'top';
+					break;
+				case 2:
+				case -2:
+					obj = 'right';
+					break;
+				case 3:
+				case -1:
+					obj = 'bottom';
+					break;
+			}
+			return obj;
+		}
+
+		btn.onclick = function(){
+			var oValue = oCom.value;
+			// if(oValue == 'TUN LEF'){
+			// 	a--;
+			// 	alert(a);
+			// 	change(a);
+			// 	tun(a);
+			// }
+			switch(oValue){
+				case 'TUN LEF':
+					a--;
+					change(a);
+					tun(a);
+					break;
+				case 'TUN RIG':
+					a++;
+					change(a);
+					tun(a);
+					break;
+				case 'TUN BAC':
+					a=a+2;
+					change(a);
+					tun(a);
+					break;
+				case 'GO':
+					change(a);
+					go(a);
+					break;
+			}
+		}
+	</script>
+</body>
+</html>

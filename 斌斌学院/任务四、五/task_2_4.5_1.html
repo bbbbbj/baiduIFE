@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>任务四</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			margin-top: 10px;
+			font-size: 0;
+		}
+		li{
+			width: 30px;
+			height: 30px;
+			display: inline-block;
+			color: #fff;
+			background-color: red;
+			line-height: 30px;
+			font-size: 16px;
+			text-align: center;
+			margin: 4px;
+			list-style: none;
+			cursor: pointer;
+			vertical-align: bottom;
+		}
+	</style>
+</head>
+<body>
+	<input type="text">
+	<button id="left-in">左侧入</button>
+	<button id="right-in">右侧入</button>
+	<button id="left-out">左侧出</button>
+	<button id="right-out">右侧出</button>
+	<ul>
+		<li>18</li>
+		<li>28</li>
+		<li>38</li>
+		<li>48</li>
+		<li>58</li>
+		<li>68</li>
+	</ul>
+	<button id="o-sort">排序</button>
+	<script>
+	window.onload = function(){
+		var oInput = document.getElementsByTagName('input')[0];
+		var leftIn = document.getElementById('left-in');
+		var rightIn = document.getElementById('right-in');
+		var rightOut = document.getElementById('right-out');
+		var leftOut = document.getElementById('left-out');
+		var ul = document.getElementsByTagName('ul')[0];
+		var li = ul.getElementsByTagName('li');
+		var oSort = document.getElementById('o-sort');
+
+		function addLeft(){
+			var addNum=document.createElement('li');
+			addNum.innerHTML = oInput.value;
+			if(li.length < 60){
+				if(ul.children[0]){
+					ul.insertBefore(addNum,ul.children[0])
+				}else{
+					ul.appendChild(addNum);
+				}
+			}else{
+				alert('最多60组');
+			}
+		}
+		function addRight(){
+			var addNum=document.createElement('li');
+			addNum.innerHTML = oInput.value;
+			if(li.length < 60){
+				ul.appendChild(addNum);
+			}else{
+				alert('最多60组');
+			}
+			
+		}
+		function delLeft(){
+			ul.removeChild(li[0]);
+		}
+		function delRight(){
+			ul.removeChild(li[li.length-1]);
+		}
+		leftIn.onclick = function(){
+			if(oInput.value == ''){
+				alert('输入框不能为空');
+			}else if(oInput.value < 10 || oInput.value > 100){
+				alert('请输入0-100之间的数字')
+			}
+			else{
+				addLeft();
+			}
+		}
+		rightIn.onclick = function(){
+			if(oInput.value == ''){
+				alert('输入框不能为空');
+			}else if(oInput.value < 10 || oInput.value > 100){
+				alert('请输入0-100之间的数字')
+			}else{
+				addRight();
+			}
+		}
+		leftOut.onclick = delLeft;
+		rightOut.onclick = delRight;
+	
+			for(var i=0;i<li.length;i++){
+				li[i].onclick = function(){
+					this.parentNode.removeChild(this);
+				}
+			}
+		function rank(){
+			for(var i=0;i<li.length;i++){
+				li[i].style.height = parseInt(li[i].innerHTML) + 'px';
+				li[i].style.fontSize = parseInt(li[i].innerHTML) / 2 +'px'
+				li[i].style.lineHeight = parseInt(li[i].innerHTML) + 'px';
+			}
+		}
+		oSort.onclick=function () {
+			var arr=new Array();
+			for (var i = 0; i < li.length; i++) {
+				arr[i]=li[i].innerHTML;
+			}
+			arrData(arr);
+			for (var i = 0; i < li.length; i++) {
+				li[i].innerHTML=arr[i];	
+				rank();			
+			}			
+		}
+		function arrData(data){
+			data.sort(function(a,b){
+				return a-b
+			});
+			return data;
+		}
+		//冒泡排序
+		// function sort(arr){
+		// 	var a=0;
+		// 	var b=0;
+		// 	var war=0;
+		// 	for(var i =0;i<arr.length;i++){
+		// 		war=0;
+		// 		for(var j=0;j<arr.length-1;j++){
+		// 			x1=arr[j];
+		// 			x2=arr[j+1];
+		// 			if(x1<x2){
+		// 				arr[j]=x2;
+		// 				arr[j+1]=x1;
+		// 				war=1;
+		// 			}
+		// 		}
+		// 		if(flag==0)break;
+		// 	}
+		// 	return arr;
+		// }
+		// function sort(arr) {
+		// 	var x1=0;
+		// 	var x2=0;
+		// 	var flag=0;
+		// 	for (var i = arr.length; i >=2; i--) {
+		// 		flag=0;
+		// 		for (var j = 0; j <=i-2; j++) {
+		// 			x1=arr[j];
+		// 			x2=arr[j+1];
+		// 			if(x1>x2){
+		// 				arr[j]=x2;
+		// 				arr[j+1]=x1;
+		// 				flag=1;
+		// 			}
+		// 		}
+		// 		if(flag==0)break;
+		// 	}
+		// 	return arr;			
+		// }	
+		
+	}
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>有趣的鼠标悬浮效果</title>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.container{
+		margin: 50px auto;
+		width: 510px;
+		height: 363px;
+		position: relative;
+		cursor: pointer;
+	}
+	.img-box{
+		position: absolute;
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		padding: 30px;
+		z-index: 99;/*防止滤镜模糊效果覆盖文字以及边框*/
+	}
+	.txt-box{
+		position: absolute;
+		width: 70%;
+		height: 70%;
+		padding-top: 80px;
+		top: 15%;
+		left: 15%;
+		opacity: 0;
+		transition: opacity .8s;
+	}
+	.title{
+		background-image: -webkit-linear-gradient(left,#d81159,#e53a40 10%,#ffec42 20%,#75d701 30%,#30a9de 40%,#d81159 50%,#e53a40 60%,#ffbc42 70%,#75d701 80%,#30a9de 90%,#d81159);
+		-webkit-background-clip: text;/*使背景的渐变只填充文字部分*/
+		color: transparent;/*文字透明显示出背景渐变色*/
+		background-size: 200% 100%;
+		transform: translate(0,20px);
+		transition: transform .8s,opacity .8s;
+		animation: flowlight 5s linear infinite;
+	}
+	.container:hover .title{
+		transform: translate(0);
+		opacity: 1;
+	}
+	.container:hover .txt-box{
+		opacity: 1;
+	}
+	@keyframes flowlight{
+		0%{
+			background-position: 0 0;
+		}
+		100%{
+			background-position: -100% 0;
+		}
+	}
+	.txt-box:before{
+		content:'';
+		border: 3px solid #fff;
+		border-width: 0 3px;
+		position: absolute;
+		width: 100%;
+		height: 0;
+		top: 50%;
+		left: 0;
+		box-sizing: border-box;
+	}
+	.txt-box:after{
+		content: '';
+		border: 3px solid #fff;
+		border-width: 3px 0;
+		position: absolute;
+		width: 0;
+		height: 100%;
+		top: 0;
+		left: 50%;
+		box-sizing: border-box;
+	}
+	.container:hover .txt-box:before{
+		height: 100%;
+		top: 0;
+	}
+	.container:hover .txt-box:after{
+		width: 100%;
+		left: 0;
+	}
+	.txt-box:before{
+		transition: all .8s;
+	}
+	.txt-box:after{
+		transition: all .8s;
+	}
+	.container:hover img{
+		filter: blur(2px);/*滤镜效果*/
+		-webkit-filter: blur(2px);
+		-moz-filter: blur(2px);
+		-ms-filter: blur(2px);
+	}
+</style>
+<body>
+	<div class="container">
+		<div class="img-box">
+			<div class="txt-box">
+				<h1 class="title">少年不识愁滋味<br>爱上层楼</h1>
+			</div>
+		</div>
+		<img src="bg.jpg" alt="">
+	</div>
+</body>
+</html>

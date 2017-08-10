@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹出层</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.menu{
+			width: 500px;
+			height: 400px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			margin-top: -250px;
+			margin-left: -200px;
+			border: 2px solid #aaa;
+			background-color: #ccc;
+			border-radius: 10px;
+			display: none;
+			z-index: 999;
+		}
+		button{
+			width: 60px;
+			height: 30px;
+			border: 1px solid #aaa;
+			border-radius: 3px;
+		}
+		.container{
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			background-color: blue;
+			opacity: 0.2;
+			z-index: 100;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="container"></div>
+	<button id="popup">弹出层</button>
+	<div class="menu" id="menu">
+		<p>这是一个弹出层</p>
+		<button id="sure">确定</button>
+		<button id="cancel">取消</button>
+	</div>
+	<script>
+		var oMenu = document.getElementById('menu');
+		var oCon = document.getElementById('container');
+		var oPopup = document.getElementById('popup');
+		var oSure = document.getElementById('sure');
+		var oCancel = document.getElementById('cancel');
+		var lis = document.body.children;
+		//事件代理
+		for(var i=0;i<lis.length;i++){
+			lis[i].onclick = function(e){
+				e=e||window.event;
+				el=e.srcElement;
+				switch(el){
+					case oPopup:
+						oMenu.style.display = 'block';
+						oCon.style.display = 'block';
+						break;
+					case oSure:
+					case oCancel:
+					case oCon:
+						oMenu.style.display = 'none';
+						oCon.style.display = 'none';
+						break;
+				}
+			}
+		}
+		// oPopup.onclick = function(){
+		// 	oMenu.style.display = 'block';
+		// 	oCon.style.display = 'block';
+		// }
+		// oSure.onclick = function(){
+		// 	oMenu.style.display = 'none';
+		// 	oCon.style.display = 'none';
+		// }
+		// oCancel.onclick = function(){
+		// 	oMenu.style.display = 'none';
+		// 	oCon.style.display = 'none';
+		// }
+		// oCon.onclick = function(){
+		// 	oMenu.style.display = 'none';
+		// 	oCon.style.display = 'none';
+		// }
+	</script>
+</body>
+</html>

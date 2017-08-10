@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表格排序UI</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		table{
+			width: 500px;
+			height: 300px;
+			margin: 100px auto;
+			box-sizing: border-box;
+		}
+		table tr{
+			height: 75px;
+			width: 100%;
+		}
+		table thead{
+			background-color: #aaa;
+		}
+		table thead td{
+			font-weight: bold;
+			color: #fff;
+			position: relative;
+		}
+		table tr td{
+			text-align: center;
+			font-size: 16px;
+			line-height: 75px;
+		}
+		.order{
+			border-width: 0 10px 10px 10px;
+			border-color: #fff transparent;
+			border-style: solid;
+			position: absolute;
+			right: 7px;
+			top: 20px;
+			cursor: pointer;
+		}
+		.desc{
+			border-width: 10px 10px 0 10px;
+			border-color: #fff transparent;
+			border-style: solid;
+			position: absolute;
+			right: 7px;
+			bottom: 20px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<table border="1" cellspacing="0">
+		<thead>
+			<tr>
+				<td>姓名</td>
+				<td>语文<div class="order""></div><div class="desc"></div></td>
+				<td>数学<div class="order""></div><div class="desc"></div></td>
+				<td>外语<div class="order""></div><div class="desc"></div></td>
+				<td>总分<div class="order""></div><div class="desc"></div></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>小红</td>
+				<td>90</td>
+				<td>60</td>
+				<td>90</td>
+				<td>240</td>
+			</tr>
+			<tr>
+				<td>小明</td>
+				<td>80</td>
+				<td>90</td>
+				<td>70</td>
+				<td>240</td>
+			</tr>
+			<tr>
+				<td>小亮</td>
+				<td>60</td>
+				<td>100</td>
+				<td>70</td>
+				<td>230</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		var asce = document.getElementsByClassName('order');
+		var desc = document.getElementsByClassName('desc');
+		var tr = document.getElementsByTagName('tr');
+		for(var a=0;a<asce.length;a++){
+			asce[a].onclick = (function(a){
+				return function(){
+					for(var j=1;j<tr.length-1;j++){
+						for(var i=1;i<tr.length-1;i++){
+							var td = tr[i].getElementsByTagName('td');
+							var tdCopy = tr[i+1].getElementsByTagName('td');
+							if(parseInt(td[a+1].innerHTML) > parseInt(tdCopy[a+1].innerHTML)){
+								var b = tr[i].innerHTML;
+								tr[i].innerHTML = tr[i+1].innerHTML;
+								tr[i+1].innerHTML = b;
+							}
+						
+						
+						}
+					}
+				}
+			})(a);
+		}
+		for(var a=0;a<desc.length;a++){
+			desc[a].onclick = (function(a){
+				return function(){
+					for(var i=1;i<tr.length-1;i++){
+						for(var j=1;j<tr.length-1;j++){
+							var td=tr[j].getElementsByTagName('td');
+							var tdCopy = tr[j+1 ].getElementsByTagName('td');
+							if(parseInt(td[a+1].innerHTML)<parseInt(tdCopy[a+1].innerHTML)){
+								var b=tr[j].innerHTML;
+								tr[j].innerHTML = tr[j+1].innerHTML;
+								tr[j+1].innerHTML = b;
+							}
+						}
+					}
+				}
+			})(a);
+		}
+		// asce[0].onclick = function(){
+		// 	for(var j=1;j<tr.length-1;j++){
+		// 		for(var i=1;i<tr.length-1;i++){
+		// 			var td = tr[i].getElementsByTagName('td')[1];
+		// 			var tdCopy = tr[i+1].getElementsByTagName('td')[1];
+		// 			if(parseInt(td.innerHTML) > parseInt(tdCopy.innerHTML)){
+		// 				var a = tr[i].innerHTML;
+		// 				tr[i].innerHTML = tr[i+1].innerHTML;
+		// 				tr[i+1].innerHTML = a;
+		// 			}
+				
+				
+		// 		}
+		// 	}
+		// }
+		
+	</script>
+</body>
+</html>

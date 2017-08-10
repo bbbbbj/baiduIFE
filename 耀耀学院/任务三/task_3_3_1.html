@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单联动</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		form{
+			width: 800px;
+			height: 600px;
+			margin: 0 auto;
+		}
+		#type1{
+			margin: 10px auto;
+		}
+		select{
+			width: 200px;
+			height: 30px;
+		}
+		#type1 label{
+			font-size: 20px;
+			font-weight: 500;
+			padding-right: 30px;
+		}
+		#type3{
+			display: none;
+		}
+		#type3 label{
+			font-size: 20px;
+			font-weight: 500;
+			padding-right: 30px;
+		}
+		#type3 input{
+			width: 400px;
+			height: 40px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+		}
+		#stu1{
+			font-size: 16px;
+			font-weight: 500;
+			padding-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<div id="type1">
+			<input type="radio" name="student" id="stu" checked>
+			<label for="1">在校生</label>
+			<input type="radio" name="student" id="cus">
+			<label for="2">非在校生</label><br>
+		</div>
+		<div id="type2">
+			<label for="3" id="stu1">学校</label>
+			<select name="city" id="city">
+				<Option>北京</Option>
+				<Option>上海</Option>
+				<Option>南京</Option>
+				<Option>西安</Option>
+			</select>
+			<select name="school" id="school">
+				<Option>北京大学</Option>
+				<Option>清华大学</Option>
+				<Option>北京师范大学</Option>
+				<Option>中国人民大学</Option>
+			</select>
+		</div>
+		<div id="type3">
+			<label for="4">就业单位：</label>
+			<input type="text">
+		</div>
+	</form>
+	<script>
+	window.onload = function(){
+		var type1 = document.getElementById('type1');
+		var type2 = document.getElementById('type2');
+		var student = document.getElementById('stu');
+		var customer = document.getElementById('cus');
+		var city = document.getElementById('city');
+		var oSchool = document.getElementById('school');
+		var Op = oSchool.getElementsByTagName('Option');
+		student.onchange = function(){
+			type2.style.display = 'block';
+			type3.style.display = 'none';
+		}
+		customer.onchange = function(){
+			type2.style.display = 'none';
+			type3.style.display = 'block';
+		}
+		city.onchange = function(){
+			school(city.value);
+		}
+		function school(a){
+			oSchool.options.length = 0;
+			switch (a){
+				case '北京':
+					oSchool.add(new Option('北京大学'));
+					oSchool.add(new Option('清华大学'));
+					oSchool.add(new Option('北京师范大学'));
+					oSchool.add(new Option('中国人民大学'));
+					break;
+				case '上海':
+					oSchool.add(new Option('复旦大学'));
+					oSchool.add(new Option('上海交通大学'));
+					oSchool.add(new Option('上海师范大学'));
+					oSchool.add(new Option('上海海洋大学'));
+					break;
+				case '南京':
+					oSchool.add(new Option('南京大学'));
+					oSchool.add(new Option('南京理工大学'));
+					oSchool.add(new Option('南京师范大学'));
+					oSchool.add(new Option('南京医科大学'));
+					break;
+				case '西安':
+					oSchool.add(new Option('西安交通大学'));
+					oSchool.add(new Option('西北大学'));
+					oSchool.add(new Option('陕西师范大学'));
+					oSchool.add(new Option('西北工业大学'));
+					break;
+			}
+		}
+	}
+	
+
+	</script>
+</body>
+</html>

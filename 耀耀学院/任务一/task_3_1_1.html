@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单验证</title>
+	<style>
+		#oLabel{
+			font-size: 10px;
+			padding-left: 54px;
+			margin-top: -4px;
+		}
+		.oFalse{
+			border: 1px solid red;
+			box-shadow: 0 0 1px red;
+		}
+		.oTrue{
+			border: 1px solid green;
+			box-shadow: 0 0 1px green;
+		}
+	</style>
+</head>
+<body>
+	<label for="">名称：</label>
+	<input type="text" placeholder="请输入昵称">
+	<button>验证</button><br>
+	<label for="" id="oLabel">必填，4-16个字符</label>
+</body>
+<script>
+	var oInput = document.getElementsByTagName('input')[0];
+	var btn = document.getElementsByTagName('button')[0];
+	var oLabel = document.getElementById('oLabel');
+	function check(){
+		if(oInput.value == ''){
+			oLabel.innerHTML = '内容不能为空';
+			oLabel.style.color = 'red';
+			oInput.className = 'oFalse';
+		}else if(oInput.value.length>16 || oInput.value.length<4){
+			oLabel.innerHTML = '昵称为长度为4-16个字符';
+			oLabel.style.color = 'red';
+			oInput.className = 'oFalse';
+		}else{
+			oLabel.innerHTML = '验证正确';
+			oLabel.style.color = 'green';
+			oInput.className = 'oTrue';
+		}
+	}
+	btn.onclick = function(){
+		check();
+	}
+</script>
+</html>
